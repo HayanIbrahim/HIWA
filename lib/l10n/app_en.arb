@@ -1,0 +1,71 @@
+{
+  "@@locale": "en",
+  "appTitle": "HiWeather",
+  "@appTitle": {
+    "description": "Application title"
+  },
+  "navWeather": "Weather",
+  "navRadar": "Radar",
+  "navLocations": "Locations",
+  "navSettings": "Settings",
+
+  "currentWeather": "Current Weather",
+  "feelsLike": "Feels like {temp}",
+  "@feelsLike": {
+    "placeholders": {
+      "temp": {
+        "type": "String"
+      }
+    }
+  },
+  "highLow": "H: {high}  L: {low}",
+  "@highLow": {
+    "placeholders": {
+      "high": { "type": "String" },
+      "low": { "type": "String" }
+    }
+  },
+  "hourlyForecast": "48-Hour Forecast",
+  "dailyForecast": "8-Day Forecast",
+  "weatherAlerts": "Weather Alerts",
+  "rainChance": "Chance of Rain",
+  "noAlerts": "No active weather alerts",
+  "humidity": "Humidity",
+  "windSpeed": "Wind Speed",
+  "pressure": "Pressure",
+  "uvIndex": "UV Index",
+  "visibility": "Visibility",
+  "dewPoint": "Dew Point",
+  "sunrise": "Sunrise",
+  "sunset": "Sunset",
+
+  "searchLocationHint": "Search city or region...",
+  "savedLocations": "Saved Locations",
+  "noSavedLocations": "No saved locations yet. Search and tap bookmark to add one.",
+  "useCurrentLocation": "Use Current Location",
+  "locationPermissionDenied": "Location permission was denied. Please enable it in Settings.",
+  "locationServicesDisabled": "Location services are disabled on your device.",
+
+  "radarLayers": "Radar Layers",
+  "layerPrecipitation": "Precipitation",
+  "layerTemperature": "Temperature",
+  "layerWind": "Wind Speed",
+  "layerClouds": "Clouds",
+
+  "settings": "Settings",
+  "appearance": "Appearance",
+  "themeSystem": "System Default",
+  "themeLight": "Light Mode",
+  "themeDark": "Dark Mode",
+  "language": "Language",
+  "languageEn": "English",
+  "languageAr": "العربية",
+  "units": "Units of Measurement",
+  "unitMetric": "Metric (°C, m/s)",
+  "unitImperial": "Imperial (°F, mph)",
+
+  "offlineNotice": "Showing cached weather data",
+  "retry": "Retry",
+  "errorOccurred": "An error occurred while loading weather data.",
+  "pullToRefresh": "Pull down to refresh"
+}
