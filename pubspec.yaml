@@ -55,7 +55,7 @@ dependencies:
 
   # Location
   geolocator: ^13.0.2
-  geocoding: ^3.0.0
+  geocoding: 4.0.0
 
   # Caching / Local Storage
   hive: ^2.2.3
