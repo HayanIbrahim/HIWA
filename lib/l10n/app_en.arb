@@ -67,5 +67,44 @@
   "offlineNotice": "Showing cached weather data",
   "retry": "Retry",
   "errorOccurred": "An error occurred while loading weather data.",
-  "pullToRefresh": "Pull down to refresh"
+  "pullToRefresh": "Pull down to refresh",
+
+  "airQuality": "Air Quality",
+  "airQualityGood": "Good",
+  "airQualityModerate": "Moderate",
+  "airQualityUnhealthySensitive": "Unhealthy for Sensitive",
+  "airQualityUnhealthy": "Unhealthy",
+  "airQualityVeryUnhealthy": "Very Unhealthy",
+  "airQualityHazardous": "Hazardous",
+  "sunAndMoon": "Sun & Moon",
+  "daylightRemaining": "{hours}h {minutes}m of daylight left",
+  "@daylightRemaining": {
+    "placeholders": {
+      "hours": { "type": "int" },
+      "minutes": { "type": "int" }
+    }
+  },
+  "nightRemaining": "{hours}h {minutes}m until sunrise",
+  "@nightRemaining": {
+    "placeholders": {
+      "hours": { "type": "int" },
+      "minutes": { "type": "int" }
+    }
+  },
+  "goldenHour": "Golden Hour",
+  "moonPhase": "Moon Phase",
+  "windCompass": "Wind & Direction",
+  "windGust": "Gusts up to {speed}",
+  "@windGust": {
+    "placeholders": {
+      "speed": { "type": "String" }
+    }
+  },
+  "hourlyCards": "Cards",
+  "hourlyChart": "Trend Chart",
+  "viewMore": "View Details",
+  "viewLess": "Show Less",
+  "popularCities": "Popular Cities",
+  "radarPlay": "Play",
+  "radarPause": "Pause"
 }

@@ -379,6 +379,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pull down to refresh'**
   String get pullToRefresh;
+
+  /// No description provided for @airQuality.
+  ///
+  /// In en, this message translates to:
+  /// **'Air Quality'**
+  String get airQuality;
+
+  /// No description provided for @airQualityGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get airQualityGood;
+
+  /// No description provided for @airQualityModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get airQualityModerate;
+
+  /// No description provided for @airQualityUnhealthySensitive.
+  ///
+  /// In en, this message translates to:
+  /// **'Unhealthy for Sensitive'**
+  String get airQualityUnhealthySensitive;
+
+  /// No description provided for @airQualityUnhealthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Unhealthy'**
+  String get airQualityUnhealthy;
+
+  /// No description provided for @airQualityVeryUnhealthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Very Unhealthy'**
+  String get airQualityVeryUnhealthy;
+
+  /// No description provided for @airQualityHazardous.
+  ///
+  /// In en, this message translates to:
+  /// **'Hazardous'**
+  String get airQualityHazardous;
+
+  /// No description provided for @sunAndMoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun & Moon'**
+  String get sunAndMoon;
+
+  /// No description provided for @daylightRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h {minutes}m of daylight left'**
+  String daylightRemaining(int hours, int minutes);
+
+  /// No description provided for @nightRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h {minutes}m until sunrise'**
+  String nightRemaining(int hours, int minutes);
+
+  /// No description provided for @goldenHour.
+  ///
+  /// In en, this message translates to:
+  /// **'Golden Hour'**
+  String get goldenHour;
+
+  /// No description provided for @moonPhase.
+  ///
+  /// In en, this message translates to:
+  /// **'Moon Phase'**
+  String get moonPhase;
+
+  /// No description provided for @windCompass.
+  ///
+  /// In en, this message translates to:
+  /// **'Wind & Direction'**
+  String get windCompass;
+
+  /// No description provided for @windGust.
+  ///
+  /// In en, this message translates to:
+  /// **'Gusts up to {speed}'**
+  String windGust(String speed);
+
+  /// No description provided for @hourlyCards.
+  ///
+  /// In en, this message translates to:
+  /// **'Cards'**
+  String get hourlyCards;
+
+  /// No description provided for @hourlyChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Trend Chart'**
+  String get hourlyChart;
+
+  /// No description provided for @viewMore.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get viewMore;
+
+  /// No description provided for @viewLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Less'**
+  String get viewLess;
+
+  /// No description provided for @popularCities.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular Cities'**
+  String get popularCities;
+
+  /// No description provided for @radarPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get radarPlay;
+
+  /// No description provided for @radarPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get radarPause;
 }
 
 class _AppLocalizationsDelegate

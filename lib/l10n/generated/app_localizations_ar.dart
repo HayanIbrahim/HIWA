@@ -156,4 +156,73 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pullToRefresh => 'اسحب لأسفل للتحديث';
+
+  @override
+  String get airQuality => 'جودة الهواء';
+
+  @override
+  String get airQualityGood => 'ممتاز';
+
+  @override
+  String get airQualityModerate => 'معتدل';
+
+  @override
+  String get airQualityUnhealthySensitive => 'غير صحي للحساسين';
+
+  @override
+  String get airQualityUnhealthy => 'غير صحي';
+
+  @override
+  String get airQualityVeryUnhealthy => 'غير صحي جداً';
+
+  @override
+  String get airQualityHazardous => 'خطير';
+
+  @override
+  String get sunAndMoon => 'الشمس والقمر';
+
+  @override
+  String daylightRemaining(int hours, int minutes) {
+    return 'متبقي $hours س و $minutes د من ضوء النهار';
+  }
+
+  @override
+  String nightRemaining(int hours, int minutes) {
+    return 'متبقي $hours س و $minutes د حتى الشروق';
+  }
+
+  @override
+  String get goldenHour => 'الساعة الذهبية';
+
+  @override
+  String get moonPhase => 'طور القمر';
+
+  @override
+  String get windCompass => 'الرياح والاتجاه';
+
+  @override
+  String windGust(String speed) {
+    return 'هبات تصل إلى $speed';
+  }
+
+  @override
+  String get hourlyCards => 'بطاقات';
+
+  @override
+  String get hourlyChart => 'رسم بياني';
+
+  @override
+  String get viewMore => 'عرض التفاصيل';
+
+  @override
+  String get viewLess => 'إخفاء التفاصيل';
+
+  @override
+  String get popularCities => 'مدن شائعة';
+
+  @override
+  String get radarPlay => 'تشغيل';
+
+  @override
+  String get radarPause => 'إيقاف مؤقت';
 }

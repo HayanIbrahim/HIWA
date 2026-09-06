@@ -69,11 +69,14 @@ class OneCallResponseDto {
     String countryName = '',
     DateTime? cachedAt,
   }) {
+    final dailyFirst = daily.isNotEmpty ? daily.first : null;
     return FullWeatherData(
       current: current.toDomain(
         cityName: cityName,
         countryName: countryName,
         cachedAt: cachedAt,
+        fallbackSunrise: dailyFirst?.sunrise,
+        fallbackSunset: dailyFirst?.sunset,
       ),
       hourly: hourly.map((e) => e.toDomain()).toList(),
       daily: daily.map((e) => e.toDomain()).toList(),
@@ -85,6 +88,8 @@ class OneCallResponseDto {
 
 class CurrentWeatherDto {
   final int dt;
+  final int? sunrise;
+  final int? sunset;
   final double temp;
   final double feelsLike;
   final int pressure;
@@ -99,6 +104,8 @@ class CurrentWeatherDto {
 
   CurrentWeatherDto({
     required this.dt,
+    this.sunrise,
+    this.sunset,
     required this.temp,
     required this.feelsLike,
     required this.pressure,
@@ -115,6 +122,8 @@ class CurrentWeatherDto {
   factory CurrentWeatherDto.fromJson(Map<String, dynamic> json) {
     return CurrentWeatherDto(
       dt: json['dt'] as int? ?? DateTime.now().millisecondsSinceEpoch ~/ 1000,
+      sunrise: json['sunrise'] as int?,
+      sunset: json['sunset'] as int?,
       temp: (json['temp'] as num?)?.toDouble() ?? 0.0,
       feelsLike: (json['feels_like'] as num?)?.toDouble() ?? 0.0,
       pressure: json['pressure'] as int? ?? 1013,
@@ -135,6 +144,8 @@ class CurrentWeatherDto {
   Map<String, dynamic> toJson() {
     return {
       'dt': dt,
+      'sunrise': sunrise,
+      'sunset': sunset,
       'temp': temp,
       'feels_like': feelsLike,
       'pressure': pressure,
@@ -153,6 +164,8 @@ class CurrentWeatherDto {
     required String cityName,
     required String countryName,
     DateTime? cachedAt,
+    int? fallbackSunrise,
+    int? fallbackSunset,
   }) {
     final firstWeather = weather.isNotEmpty
         ? weather.first
@@ -176,6 +189,8 @@ class CurrentWeatherDto {
       description: firstWeather.description,
       iconCode: firstWeather.icon,
       dt: dt,
+      sunrise: sunrise ?? fallbackSunrise,
+      sunset: sunset ?? fallbackSunset,
       cityName: cityName,
       countryName: countryName,
       cachedAt: cachedAt,

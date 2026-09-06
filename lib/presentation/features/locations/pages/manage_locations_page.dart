@@ -109,7 +109,7 @@ class _ManageLocationsPageState extends State<ManageLocationsPage> {
                   }
 
                   return ListView.separated(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 100),
                     itemCount: state.searchResults.length,
                     separatorBuilder: (_, __) => const SizedBox(height: 10),
                     itemBuilder: (context, index) {
@@ -160,6 +160,7 @@ class _ManageLocationsPageState extends State<ManageLocationsPage> {
 
                 // Saved Locations List
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // GPS Current Location quick button
                     Padding(
@@ -201,7 +202,36 @@ class _ManageLocationsPageState extends State<ManageLocationsPage> {
                       ),
                     ),
 
-                    const SizedBox(height: 8),
+                    // Popular Cities Quick-Pick Section
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 12, 20, 6),
+                      child: Text(
+                        l10n?.popularCities ?? 'Popular Cities',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.primary,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 38,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        children: [
+                          _buildPopularCityChip('Cairo', 'Egypt', 30.0444, 31.2357),
+                          _buildPopularCityChip('Dubai', 'UAE', 25.2048, 55.2708),
+                          _buildPopularCityChip('London', 'UK', 51.5074, -0.1278),
+                          _buildPopularCityChip('New York', 'USA', 40.7128, -74.0060),
+                          _buildPopularCityChip('Paris', 'France', 48.8566, 2.3522),
+                          _buildPopularCityChip('Tokyo', 'Japan', 35.6762, 139.6503),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
 
                     if (state.savedLocations.isEmpty)
                       Expanded(
@@ -222,7 +252,7 @@ class _ManageLocationsPageState extends State<ManageLocationsPage> {
                     else
                       Expanded(
                         child: ListView.separated(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                          padding: const EdgeInsets.fromLTRB(20, 8, 20, 100),
                           itemCount: state.savedLocations.length,
                           separatorBuilder: (_, __) => const SizedBox(height: 12),
                           itemBuilder: (context, index) {
@@ -242,6 +272,17 @@ class _ManageLocationsPageState extends State<ManageLocationsPage> {
                               ),
                               onDismissed: (_) {
                                 context.read<LocationBloc>().add(DeleteLocationEvent(loc));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('${loc.cityName} removed'),
+                                    action: SnackBarAction(
+                                      label: 'UNDO',
+                                      onPressed: () {
+                                        context.read<LocationBloc>().add(ToggleSaveLocationEvent(loc));
+                                      },
+                                    ),
+                                  ),
+                                );
                               },
                               child: GlassCard(
                                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
@@ -249,6 +290,18 @@ class _ManageLocationsPageState extends State<ManageLocationsPage> {
                                   onTap: () => _onLocationSelected(loc),
                                   child: Row(
                                     children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: theme.colorScheme.primary.withOpacity(0.12),
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        child: Icon(
+                                          Icons.location_city_rounded,
+                                          color: theme.colorScheme.primary,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 14),
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,11 +309,11 @@ class _ManageLocationsPageState extends State<ManageLocationsPage> {
                                             Text(
                                               loc.cityName,
                                               style: const TextStyle(
-                                                fontSize: 18,
+                                                fontSize: 17,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            const SizedBox(height: 4),
+                                            const SizedBox(height: 2),
                                             Text(
                                               loc.countryName,
                                               style: TextStyle(
@@ -286,6 +339,28 @@ class _ManageLocationsPageState extends State<ManageLocationsPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildPopularCityChip(String city, String country, double lat, double lon) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: ActionChip(
+        label: Text(city),
+        avatar: const Icon(Icons.add_location_alt_outlined, size: 14),
+        labelStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(0.8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        onPressed: () {
+          final loc = LocationEntity(
+            cityName: city,
+            countryName: country,
+            latitude: lat,
+            longitude: lon,
+          );
+          _onLocationSelected(loc);
+        },
       ),
     );
   }

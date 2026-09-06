@@ -16,6 +16,8 @@ class WeatherEntity {
   final String description;
   final String iconCode;
   final int dt;
+  final int? sunrise;
+  final int? sunset;
   final String cityName;
   final String countryName;
   final DateTime? cachedAt;
@@ -38,6 +40,8 @@ class WeatherEntity {
     required this.description,
     required this.iconCode,
     required this.dt,
+    this.sunrise,
+    this.sunset,
     required this.cityName,
     required this.countryName,
     this.cachedAt,

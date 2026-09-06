@@ -97,6 +97,8 @@ class WeatherMockData {
       timezone: 'Africa/Cairo',
       current: CurrentWeatherDto(
         dt: nowEpoch,
+        sunrise: nowEpoch - (4 * 3600),
+        sunset: nowEpoch + (8 * 3600),
         temp: 27.4,
         feelsLike: 28.1,
         pressure: 1014,

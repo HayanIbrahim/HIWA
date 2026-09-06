@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../l10n/generated/app_localizations.dart';
+import 'widgets/floating_glass_nav_bar.dart';
 
 class AppShell extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -22,29 +23,30 @@ class AppShell extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
 
     return Scaffold(
+      extendBody: true,
       body: navigationShell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: _onDestinationSelected,
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.cloud_outlined),
-            selectedIcon: const Icon(Icons.cloud_rounded),
+      bottomNavigationBar: FloatingGlassNavBar(
+        currentIndex: navigationShell.currentIndex,
+        onTap: _onDestinationSelected,
+        items: [
+          FloatingNavItem(
+            icon: Icons.wb_sunny_outlined,
+            activeIcon: Icons.wb_sunny_rounded,
             label: l10n?.navWeather ?? 'Weather',
           ),
-          NavigationDestination(
-            icon: const Icon(Icons.map_outlined),
-            selectedIcon: const Icon(Icons.map_rounded),
+          FloatingNavItem(
+            icon: Icons.radar_outlined,
+            activeIcon: Icons.radar_rounded,
             label: l10n?.navRadar ?? 'Radar',
           ),
-          NavigationDestination(
-            icon: const Icon(Icons.location_on_outlined),
-            selectedIcon: const Icon(Icons.location_on_rounded),
+          FloatingNavItem(
+            icon: Icons.bookmark_border_rounded,
+            activeIcon: Icons.bookmark_rounded,
             label: l10n?.navLocations ?? 'Locations',
           ),
-          NavigationDestination(
-            icon: const Icon(Icons.settings_outlined),
-            selectedIcon: const Icon(Icons.settings_rounded),
+          FloatingNavItem(
+            icon: Icons.tune_rounded,
+            activeIcon: Icons.tune_rounded,
             label: l10n?.navSettings ?? 'Settings',
           ),
         ],

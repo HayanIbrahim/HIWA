@@ -1,11 +1,14 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import '../../../../core/constants/api_constants.dart';
+import '../../../../domain/entities/location_entity.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../../../common_widgets/glass_card.dart';
+import '../../locations/bloc/location_bloc.dart';
 import '../../weather/bloc/weather_bloc.dart';
 import '../bloc/map_bloc.dart';
 
@@ -18,6 +21,49 @@ class WeatherMapPage extends StatefulWidget {
 
 class _WeatherMapPageState extends State<WeatherMapPage> {
   final MapController _mapController = MapController();
+  bool _isPlaying = false;
+  double _timelineOffset = 0.0; // -2.0 to +1.0
+  Timer? _playbackTimer;
+
+  final List<LocationEntity> _quickCities = const [
+    LocationEntity(cityName: 'Cairo', countryName: 'Egypt', latitude: 30.0444, longitude: 31.2357),
+    LocationEntity(cityName: 'Alexandria', countryName: 'Egypt', latitude: 31.2001, longitude: 29.9187),
+    LocationEntity(cityName: 'Dubai', countryName: 'UAE', latitude: 25.2048, longitude: 55.2708),
+    LocationEntity(cityName: 'London', countryName: 'UK', latitude: 51.5074, longitude: -0.1278),
+    LocationEntity(cityName: 'Paris', countryName: 'France', latitude: 48.8566, longitude: 2.3522),
+    LocationEntity(cityName: 'New York', countryName: 'USA', latitude: 40.7128, longitude: -74.0060),
+    LocationEntity(cityName: 'Tokyo', countryName: 'Japan', latitude: 35.6762, longitude: 139.6503),
+  ];
+
+  @override
+  void dispose() {
+    _playbackTimer?.cancel();
+    super.dispose();
+  }
+
+  void _togglePlayback() {
+    setState(() {
+      _isPlaying = !_isPlaying;
+      if (_isPlaying) {
+        _playbackTimer = Timer.periodic(const Duration(milliseconds: 700), (timer) {
+          setState(() {
+            _timelineOffset += 0.5;
+            if (_timelineOffset > 1.0) {
+              _timelineOffset = -2.0;
+            }
+          });
+        });
+      } else {
+        _playbackTimer?.cancel();
+      }
+    });
+  }
+
+  String _formatTimelineOffset(double val) {
+    if (val.abs() < 0.1) return 'Now';
+    if (val < 0) return '${val.abs().toStringAsFixed(1)}h ago';
+    return '+${val.toStringAsFixed(1)}h';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +71,6 @@ class _WeatherMapPageState extends State<WeatherMapPage> {
     final apiKey = dotenv.env['OPENWEATHER_API_KEY'] ?? '';
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // Use CartoDB Dark Matter for dark mode and Positron for light mode
     final baseTileUrl = isDark
         ? 'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'
         : 'https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
@@ -129,9 +174,9 @@ class _WeatherMapPageState extends State<WeatherMapPage> {
 
                   // Floating Layer Selector at Top
                   Positioned(
-                    top: 16,
-                    left: 16,
-                    right: 16,
+                    top: 14,
+                    left: 14,
+                    right: 14,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -172,10 +217,46 @@ class _WeatherMapPageState extends State<WeatherMapPage> {
                     ),
                   ),
 
-                  // Floating Zoom & Opacity Controls
+                  // Floating Quick Cities Bar
                   Positioned(
-                    bottom: 24,
+                    top: 66,
+                    left: 14,
+                    right: 14,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: _quickCities.map((city) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 6),
+                            child: ActionChip(
+                              label: Text(city.cityName),
+                              labelStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                              backgroundColor: Colors.black.withOpacity(0.55),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                              onPressed: () {
+                                final target = LatLng(city.latitude, city.longitude);
+                                _mapController.move(target, 7.0);
+                                context.read<WeatherBloc>().add(
+                                      FetchWeatherEvent(
+                                        latitude: city.latitude,
+                                        longitude: city.longitude,
+                                        cityName: city.cityName,
+                                        countryName: city.countryName,
+                                      ),
+                                    );
+                                context.read<LocationBloc>().add(SelectLocationEvent(city));
+                              },
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+
+                  // Floating Zoom Controls
+                  Positioned(
                     right: 16,
+                    bottom: 180,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -197,6 +278,66 @@ class _WeatherMapPageState extends State<WeatherMapPage> {
                           child: const Icon(Icons.remove_rounded),
                         ),
                       ],
+                    ),
+                  ),
+
+                  // Radar Timeline Playback Controller at Bottom
+                  Positioned(
+                    left: 16,
+                    right: 16,
+                    bottom: 96,
+                    child: GlassCard(
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                      borderRadius: 20,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(_isPlaying ? Icons.pause_circle_filled_rounded : Icons.play_circle_fill_rounded),
+                            iconSize: 34,
+                            color: Theme.of(context).colorScheme.primary,
+                            onPressed: _togglePlayback,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Radar Loop: ${_formatTimelineOffset(_timelineOffset)}',
+                                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+                                    ),
+                                    const Text(
+                                      'Live Sim',
+                                      style: TextStyle(fontSize: 10, color: Color(0xFF38BDF8), fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                SliderTheme(
+                                  data: SliderTheme.of(context).copyWith(
+                                    trackHeight: 3,
+                                    thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
+                                  ),
+                                  child: Slider(
+                                    value: _timelineOffset,
+                                    min: -2.0,
+                                    max: 1.0,
+                                    divisions: 6,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        _timelineOffset = val;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

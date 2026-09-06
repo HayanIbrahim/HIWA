@@ -51,5 +51,27 @@
   "offlineNotice": "عرض بيانات الطقس المحفوظة مؤقتاً",
   "retry": "إعادة المحاولة",
   "errorOccurred": "حدث خطأ أثناء تحميل بيانات الطقس.",
-  "pullToRefresh": "اسحب لأسفل للتحديث"
+  "pullToRefresh": "اسحب لأسفل للتحديث",
+
+  "airQuality": "جودة الهواء",
+  "airQualityGood": "ممتاز",
+  "airQualityModerate": "معتدل",
+  "airQualityUnhealthySensitive": "غير صحي للحساسين",
+  "airQualityUnhealthy": "غير صحي",
+  "airQualityVeryUnhealthy": "غير صحي جداً",
+  "airQualityHazardous": "خطير",
+  "sunAndMoon": "الشمس والقمر",
+  "daylightRemaining": "متبقي {hours} س و {minutes} د من ضوء النهار",
+  "nightRemaining": "متبقي {hours} س و {minutes} د حتى الشروق",
+  "goldenHour": "الساعة الذهبية",
+  "moonPhase": "طور القمر",
+  "windCompass": "الرياح والاتجاه",
+  "windGust": "هبات تصل إلى {speed}",
+  "hourlyCards": "بطاقات",
+  "hourlyChart": "رسم بياني",
+  "viewMore": "عرض التفاصيل",
+  "viewLess": "إخفاء التفاصيل",
+  "popularCities": "مدن شائعة",
+  "radarPlay": "تشغيل",
+  "radarPause": "إيقاف مؤقت"
 }

@@ -19,7 +19,7 @@ class SettingsPage extends StatelessWidget {
       body: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
           return ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 100),
             children: [
               // Theme Section
               _buildSectionTitle(context, l10n?.appearance ?? 'Appearance'),

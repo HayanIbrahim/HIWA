@@ -156,4 +156,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pullToRefresh => 'Pull down to refresh';
+
+  @override
+  String get airQuality => 'Air Quality';
+
+  @override
+  String get airQualityGood => 'Good';
+
+  @override
+  String get airQualityModerate => 'Moderate';
+
+  @override
+  String get airQualityUnhealthySensitive => 'Unhealthy for Sensitive';
+
+  @override
+  String get airQualityUnhealthy => 'Unhealthy';
+
+  @override
+  String get airQualityVeryUnhealthy => 'Very Unhealthy';
+
+  @override
+  String get airQualityHazardous => 'Hazardous';
+
+  @override
+  String get sunAndMoon => 'Sun & Moon';
+
+  @override
+  String daylightRemaining(int hours, int minutes) {
+    return '${hours}h ${minutes}m of daylight left';
+  }
+
+  @override
+  String nightRemaining(int hours, int minutes) {
+    return '${hours}h ${minutes}m until sunrise';
+  }
+
+  @override
+  String get goldenHour => 'Golden Hour';
+
+  @override
+  String get moonPhase => 'Moon Phase';
+
+  @override
+  String get windCompass => 'Wind & Direction';
+
+  @override
+  String windGust(String speed) {
+    return 'Gusts up to $speed';
+  }
+
+  @override
+  String get hourlyCards => 'Cards';
+
+  @override
+  String get hourlyChart => 'Trend Chart';
+
+  @override
+  String get viewMore => 'View Details';
+
+  @override
+  String get viewLess => 'Show Less';
+
+  @override
+  String get popularCities => 'Popular Cities';
+
+  @override
+  String get radarPlay => 'Play';
+
+  @override
+  String get radarPause => 'Pause';
 }
